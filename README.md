@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚽ FOOTBRAIN
+# Midmar
 
 ### the football brain your scouting department wishes it had
 
@@ -20,7 +20,7 @@
 **no cap, it's basically Football Manager meets Moneyball.**
 
 <!--
-  📸 DROP YOUR SCREENSHOTS/GIFS HERE
+  DROP YOUR SCREENSHOTS/GIFS HERE
   record a quick screen capture of the dashboard (Kap / ScreenToGif / Peek all work great,
   free, no watermark), save it as a .gif in a /docs or /assets folder, then point the tag below at it.
   keep gifs under ~5MB and under 10s so the README doesn't lag on load.
@@ -31,21 +31,21 @@
 
 ---
 
-## TL;DR 🧠
+## TL;DR 
 
 FootBrain is a full-stack platform that helps football (soccer) clubs make data-backed decisions:
 
-- 📊 **Player stats & performance tracking**
-- 💰 **Market value prediction** (goals, assists, position, age → € estimate, via ML)
-- 🩹 **Injury risk prediction** (physical stats → risk score)
-- 🎥 **Video analysis** — upload match footage, get player tracking + distance-covered breakdowns
-- 🛡️ **Admin panel** — user management, activity logs, analytics
+-  **Player stats & performance tracking**
+-  **Market value prediction** (goals, assists, position, age → € estimate, via ML)
+- **Injury risk prediction** (physical stats → risk score)
+-  **Video analysis** — upload match footage, get player tracking + distance-covered breakdowns
+- **Admin panel** — user management, activity logs, analytics
 
 It's three apps wearing a trenchcoat: a **React frontend**, a **Node/Express + MongoDB backend**, and a **Python/Flask AI microservice**. They talk to each other over HTTP. That's it, that's the whole plot.
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Architecture](#-architecture)
 - [Tech Stack](#-tech-stack)
@@ -61,29 +61,29 @@ It's three apps wearing a trenchcoat: a **React frontend**, a **Node/Express + M
 
 ---
 
-## 🏗 Architecture
+##  Architecture
 
 Three services, three jobs, zero drama (when it's all running):
 
 ```mermaid
 flowchart LR
-    subgraph Client["🖥️ Browser"]
+    subgraph Client[" Browser"]
         FE["React + Vite<br/>(port 8080)"]
     end
 
-    subgraph Backend["🟢 Node/Express API<br/>(port 3000/3001)"]
+    subgraph Backend["Node/Express API<br/>(port 3000/3001)"]
         Auth["Auth<br/>JWT + bcrypt"]
         CRUD["Players / Matches /<br/>Teams / Admin"]
         Proxy["AI Proxy Layer"]
     end
 
-    subgraph AI["🐍 Python/Flask AI Service<br/>(port 5000)"]
+    subgraph AI["Python/Flask AI Service<br/>(port 5000)"]
         MV["Market Value Model<br/>(XGBoost)"]
         Injury["Injury Risk Model<br/>(XGBoost)"]
         CV["Video Analysis<br/>(OpenCV + YOLO/Torch)"]
     end
 
-    DB[("🍃 MongoDB Atlas")]
+    DB[(" MongoDB Atlas")]
 
     FE -->|"/api/*"| Auth
     FE -->|"/api/*"| CRUD
@@ -98,7 +98,7 @@ flowchart LR
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 | Layer | Tech | Why |
 |---|---|---|
@@ -117,7 +117,7 @@ flowchart LR
 
 ---
 
-## ✨ Features, in Detail
+## Features, in Detail
 
 ### 1. Auth & Accounts
 Email/password signup and login. Passwords are salted and hashed with bcrypt (never stored in plain text — checked, confirmed). JWTs expire after 7 days. There's a dedicated `admin` role, gated by a `ProtectedRoute` / `AdminRoute` wrapper in the frontend router.
@@ -139,7 +139,7 @@ User management, activity logs (who did what, when — every login, signup, and 
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 FOOTBRAIN/
@@ -155,15 +155,15 @@ FOOTBRAIN/
 │   ├── routes/                # Express routers
 │   ├── middleware/            # auth, error handling
 │   ├── services/              # business logic (activity log, admin init, age sync)
-│   └── python-api/            # 🐍 the AI microservice lives HERE (see below)
-└── python-api/                 # ⚠️ legacy/duplicate copy — see Known Issues
+│   └── python-api/            # the AI microservice lives HERE (see below)
+└── python-api/                 #  legacy/duplicate copy — see Known Issues
 ```
 
 > **Heads up:** there are currently *two* Python API folders (`/python-api` and `/server/python-api`). The one under `server/` is the real, current one. See [Known Issues](#-known-issues--roadmap).
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 You'll be running **three processes** at once. `concurrently` is already wired up to do this in one command, but here's the breakdown either way.
 
@@ -196,7 +196,7 @@ Then fill in `.env` — see [Environment Variables](#-environment-variables) bel
 cd server/python-api
 pip install -r requirements.txt
 ```
-> ⚠️ `requirements.txt` is currently missing `torch` and `ultralytics`, which the video-analysis pipeline needs. Add them yourself for now:
+>  `requirements.txt` is currently missing `torch` and `ultralytics`, which the video-analysis pipeline needs. Add them yourself for now:
 > ```bash
 > pip install torch ultralytics
 > ```
@@ -206,9 +206,9 @@ pip install -r requirements.txt
 npm run dev:all
 ```
 This spins up:
-- 🎨 frontend → `http://localhost:8080`
-- 🟢 backend → `http://localhost:3000` (or `3001`, check your `.env`)
-- 🐍 Python AI → `http://localhost:5000`
+- frontend → `http://localhost:8080`
+-  backend → `http://localhost:3000` (or `3001`, check your `.env`)
+- Python AI → `http://localhost:5000`
 
 Or run them separately in three terminals with `npm run dev`, `npm run dev:server`, and `npm run dev:python`.
 
@@ -220,7 +220,7 @@ Outputs static files to `/dist`.
 
 ---
 
-## 🔑 Environment Variables
+## Environment Variables
 
 All of these live in `server/.env` (copy from `server/.env.example`):
 
@@ -242,7 +242,7 @@ For the **frontend**, create a `.env` in the repo root with:
 
 ---
 
-## 📡 API Reference
+##  API Reference
 
 Base path: `/api`
 
@@ -257,9 +257,9 @@ Base path: `/api`
 | `POST` | `/matches/:matchId/raw-insights` | ingest raw match data |
 | `POST` | `/matches/:matchId/map-ids` | reconcile player IDs across sources |
 | `POST` | `/matches/:matchId/finalize` | finalize match processing |
-| `POST` | `/ai/predict/market-value` | 💰 predict a player's transfer value |
-| `POST` | `/ai/predict/injury` | 🩹 predict injury risk |
-| `POST` | `/ai/analyze-video` | 🎥 upload + analyze match footage |
+| `POST` | `/ai/predict/market-value` |  predict a player's transfer value |
+| `POST` | `/ai/predict/injury` | predict injury risk |
+| `POST` | `/ai/analyze-video` |  upload + analyze match footage |
 | `POST` | `/ai/commit-video-analysis` | save analysis results |
 | `GET` | `/ai/analysis-output/:filename` | stream back the annotated video |
 | `GET` | `/ai/health` | is the AI service alive? |
@@ -278,7 +278,7 @@ All `/ai/*`, `/players/*`, and `/matches/*` routes require a valid JWT (`Authori
 
 ---
 
-## 🗄 Data Models
+##  Data Models
 
 | Model | Purpose |
 |---|---|
@@ -297,17 +297,17 @@ All `/ai/*`, `/players/*`, and `/matches/*` routes require a valid JWT (`Authori
 
 ---
 
-## 🐛 Known Issues & Roadmap
+##  Known Issues & Roadmap
 
 Being real with you — here's what still needs work before this is production-clean:
 
-- [ ] **🔴 Rotate secrets.** `server/.env` is (or has been) committed to git history with real MongoDB/JWT/admin credentials. Rotate them and make sure `.env` is gitignored going forward.
-- [ ] **🔴 Clean up repo bloat.** A full Python virtualenv, the `dist/` build output, and uploaded/generated videos have ended up tracked in git. Needs a `.gitignore` pass + history rewrite (`git filter-repo`/BFG) to shrink the repo.
-- [ ] **🟡 Merge the duplicate Python API.** `/python-api` (root) is a stale copy of `/server/python-api`. Pick one, delete the other.
-- [ ] **🟡 Fix `requirements.txt`.** Missing `torch` and `ultralytics`, which video analysis actually depends on.
-- [ ] **🟡 Remove hardcoded personal file paths** (`C:\Users\Dell\Downloads\...`) from `app.py` — use env vars with no machine-specific default.
-- [ ] **🟢 ESLint cleanup.** Mostly `any` types in `src/services/api.ts` — tighten these up for real type safety.
-- [ ] **🟢 Code-split the frontend bundle.** Main JS chunk is ~926KB — dynamic `import()` for heavy pages (Admin, VideoAnalysis) would help load time.
+- [ ] ** Rotate secrets.** `server/.env` is (or has been) committed to git history with real MongoDB/JWT/admin credentials. Rotate them and make sure `.env` is gitignored going forward.
+- [ ] ** Clean up repo bloat.** A full Python virtualenv, the `dist/` build output, and uploaded/generated videos have ended up tracked in git. Needs a `.gitignore` pass + history rewrite (`git filter-repo`/BFG) to shrink the repo.
+- [ ] ** Merge the duplicate Python API.** `/python-api` (root) is a stale copy of `/server/python-api`. Pick one, delete the other.
+- [ ] ** Fix `requirements.txt`.** Missing `torch` and `ultralytics`, which video analysis actually depends on.
+- [ ] ** Remove hardcoded personal file paths** (`C:\Users\Dell\Downloads\...`) from `app.py` — use env vars with no machine-specific default.
+- [ ] ** ESLint cleanup.** Mostly `any` types in `src/services/api.ts` — tighten these up for real type safety.
+- [ ] ** Code-split the frontend bundle.** Main JS chunk is ~926KB — dynamic `import()` for heavy pages (Admin, VideoAnalysis) would help load time.
 
 Bigger picture ideas for where this could go:
 - Real-time match tracking (WebSocket live stats)
@@ -317,7 +317,7 @@ Bigger picture ideas for where this could go:
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork it
 2. Branch off (`git checkout -b feat/your-idea`)
@@ -328,7 +328,7 @@ Run `npm run lint` and `npm test` before you push. Please.
 
 ---
 
-## 📄 License
+## License
 
 Not yet specified — add a `LICENSE` file (MIT is a solid default for a project like this) before treating this as open source.
 
