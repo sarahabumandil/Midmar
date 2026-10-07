@@ -1,11 +1,11 @@
-# Midmar — Project Roadmap & Development Charter
+# Midmar [ Project Roadmap & Development Charter ]
 
 **A football analytics platform combining full-stack engineering and applied machine learning**
 
 | | |
 |---|---|
 | **Project name** | Midmar *(repository: FOOTBRAIN)* |
-| **Team** | Hala Al Hendi · Asala Abu Ghrara · Sarah Abumandil · Mohamed Awad |
+| **Team** | Hala Al Hendi , Asala Abu Ghrara , Sarah Abumandil , Mohamed Awad |
 | **Timeline** | April 2026 – April 2027 (13 months) |
 | **Document version** | 1.0 |
 | **Document type** | Project Roadmap & Development Charter |
