@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark analytics theme */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Electric cyan primary */
+    --primary: 190 95% 50%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 222 47% 14%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 222 47% 14%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 190 95% 50%;
+    --accent-foreground: 222 47% 6%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Risk colors */
+    --risk-low: 142 76% 45%;
+    --risk-medium: 38 92% 55%;
+    --risk-high: 0 84% 60%;
+
+    /* Success/Growth */
+    --success: 142 76% 45%;
+    --success-foreground: 222 47% 6%;
+
+    /* Warning */
+    --warning: 38 92% 55%;
+    --warning-foreground: 222 47% 6%;
+
+    /* AI Glow */
+    --ai-glow: 190 95% 50%;
+    --ai-glow-dim: 190 70% 30%;
+
+    --border: 222 47% 18%;
+    --input: 222 47% 14%;
+    --ring: 190 95% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 190 95% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 47% 14%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 47% 18%;
+    --sidebar-ring: 190 95% 50%;
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 190 95% 50%;
+    --primary-foreground: 222 47% 6%;
+    --secondary: 222 47% 14%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 222 47% 14%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 190 95% 50%;
+    --accent-foreground: 222 47% 6%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 222 47% 18%;
+    --input: 222 47% 14%;
+    --ring: 190 95% 50%;
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 190 95% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 47% 14%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 47% 18%;
+    --sidebar-ring: 190 95% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* AI Glow Effects */
+  .ai-glow {
+    box-shadow: 0 0 30px hsl(var(--ai-glow) / 0.15),
+                0 0 60px hsl(var(--ai-glow) / 0.1);
+  }
+
+  .ai-glow-intense {
+    box-shadow: 0 0 20px hsl(var(--ai-glow) / 0.3),
+                0 0 40px hsl(var(--ai-glow) / 0.2),
+                0 0 60px hsl(var(--ai-glow) / 0.1);
+  }
+
+  .ai-border-glow {
+    border-color: hsl(var(--ai-glow) / 0.5);
+    box-shadow: 0 0 15px hsl(var(--ai-glow) / 0.2);
+  }
+
+  /* Stat Card */
+  .stat-card {
+    @apply bg-card rounded-xl border border-border p-6 transition-all duration-300;
+  }
+
+  .stat-card:hover {
+    @apply border-primary/30;
+    box-shadow: 0 0 30px hsl(var(--ai-glow) / 0.1);
+  }
+
+  /* Risk Indicators */
+  .risk-low {
+    @apply text-[hsl(var(--risk-low))];
+  }
+
+  .risk-medium {
+    @apply text-[hsl(var(--risk-medium))];
+  }
+
+  .risk-high {
+    @apply text-[hsl(var(--risk-high))];
+  }
+
+  .risk-badge-low {
+    @apply bg-[hsl(var(--risk-low)/0.15)] text-[hsl(var(--risk-low))] border border-[hsl(var(--risk-low)/0.3)];
+  }
+
+  .risk-badge-medium {
+    @apply bg-[hsl(var(--risk-medium)/0.15)] text-[hsl(var(--risk-medium))] border border-[hsl(var(--risk-medium)/0.3)];
+  }
+
+  .risk-badge-high {
+    @apply bg-[hsl(var(--risk-high)/0.15)] text-[hsl(var(--risk-high))] border border-[hsl(var(--risk-high)/0.3)];
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-[hsl(200,90%,60%)] to-primary bg-clip-text text-transparent;
+  }
+
+  /* Pulse Animation */
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--ai-glow) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--ai-glow) / 0.4);
+    }
+  }
+
+  /* Data Grid */
+  .data-grid {
+    @apply grid gap-4;
+  }
+
+  /* Metric Display */
+  .metric-value {
+    @apply text-4xl font-bold tracking-tight;
+  }
+
+  .metric-label {
+    @apply text-sm text-muted-foreground uppercase tracking-wider;
+  }
+
+  /* Navigation Active State */
+  .nav-active {
+    @apply bg-primary/10 text-primary border-l-2 border-primary;
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
