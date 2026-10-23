@@ -1,6 +1,6 @@
 <div align="center">
 
-# Midmar
+# Midmar : Graduation Project
 
 ### the football brain your scouting department wishes it had
 
